@@ -126,6 +126,14 @@ Probabilistic forecasting (uncertainty-aware models)
 
 Scaling pipeline for larger datasets
 
+git clone https://github.com/Aqua-Mavericks/ML-Build.git
+cd ML-Build
+python -m venv venv
+source venv/bin/activate   # (or venv\Scripts\activate on Windows)
+pip install -r requirements.txt
+jupyter notebook
+
+
 🔗 Connect
 
 📬 Authors: Pushkar Arora, Satyam Choudhary
