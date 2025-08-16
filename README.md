@@ -108,3 +108,34 @@ Each phase builds upon the previous one, ensuring smooth integration.
 - **Integration-first:** Each phase feeds into the next, enabling a pipeline from raw CSV → anomalies → maintenance → forecasts  
 - **Noise-aware:** Spikes ≠ real problems. Models consider temporal consistency before flagging risks  
 - **Explainability:** Clear `MODEL_CARDS` and metrics → helps industries_
+- 🚀 Quick Start
+git clone https://github.com/Aqua-Mavericks/ML-Build.git
+cd ML-Build
+python -m venv venv
+source venv/bin/activate   # (or venv\Scripts\activate on Windows)
+pip install -r requirements.txt
+jupyter notebook
+
+🔮 Roadmap
+
+Live sensor integration with Flask / Node-RED
+
+Online anomaly detection (streaming)
+
+Probabilistic forecasting (uncertainty-aware models)
+
+Scaling pipeline for larger datasets
+
+🔗 Connect
+
+📬 Authors: Pushkar Arora, Satyam Choudhary
+
+Pushkar's Github
+
+Satyam's Github
+
+Pushkar's LinkedIn
+
+Satyam's LinkedIn
+
+Kaggle
