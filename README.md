@@ -36,7 +36,14 @@ Each phase builds upon the previous one, ensuring smooth integration.
 
 - **Model:** `RandomForestClassifier(n_estimators=100, random_state=42)`  
 - **Features:** TDS, turbidity, temperature, pH  
-- **Label Encoding:** Status column converted using `LabelEncoder` → Safe=0, Warning=1, Danger=2  
+- **LPreprocessing:
+
+LabelEncoder applied → Safe=0, Warning=1, Danger=2
+
+Missing values handled with forward-fill
+
+Standard scaling for numeric features
+
   - **Why?** Makes categorical target usable for ML, ensures consistent mapping across training and deployment  
 
 **Outcome:**  
@@ -104,11 +111,23 @@ Each phase builds upon the previous one, ensuring smooth integration.
 
 ---
 
+⚙️ Requirements
+
+Python 3.10
+
+Libraries: numpy, pandas, scikit-learn==1.5.1, matplotlib, seaborn, joblib, flask, jupyter
+
+Install with:
+```
+pip install -r requirements.txt
+```
+
 ## 🧠 Design Ideology  
 - **Integration-first:** Each phase feeds into the next, enabling a pipeline from raw CSV → anomalies → maintenance → forecasts  
 - **Noise-aware:** Spikes ≠ real problems. Models consider temporal consistency before flagging risks  
 - **Explainability:** Clear `MODEL_CARDS` and metrics → helps industries_
 - 🚀 Quick Start
+```
 git clone https://github.com/Aqua-Mavericks/ML-Build.git
 cd ML-Build
 python -m venv venv
@@ -116,34 +135,13 @@ source venv/bin/activate   # (or venv\Scripts\activate on Windows)
 pip install -r requirements.txt
 jupyter notebook
 
-🔮 Roadmap
-
-Live sensor integration with Flask / Node-RED
-
-Online anomaly detection (streaming)
-
-Probabilistic forecasting (uncertainty-aware models)
-
-Scaling pipeline for larger datasets
-
-git clone https://github.com/Aqua-Mavericks/ML-Build.git
-cd ML-Build
-python -m venv venv
-source venv/bin/activate   # (or venv\Scripts\activate on Windows)
-pip install -r requirements.txt
-jupyter notebook
-
+```
 
 🔗 Connect
+## 🔗 Connect  
 
-📬 Authors: Pushkar Arora, Satyam Choudhary
+📬 **Authors:** Pushkar Arora, Satyam Choudhary  
 
-Pushkar's Github
+- **Pushkar:** [GitHub](https://github.com/pushkar1887) | [LinkedIn](https://www.linkedin.com/in/pushkar-arora-0b3599356/) | [Kaggle](https://www.kaggle.com/pushkararora)  
+- **Satyam:** [GitHub](https://github.com/SatyamChoudhary1909) | [LinkedIn](https://www.linkedin.com/in/satyam-choudhary-114b89325/)  
 
-Satyam's Github
-
-Pushkar's LinkedIn
-
-Satyam's LinkedIn
-
-Kaggle
