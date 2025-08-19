@@ -5,13 +5,12 @@
 
 ---
 
-## Roadmap (top-level)
+## Roadmap 
 
 1. **Correlation-first checks** — enforce physical/chemical relationships between pH, TDS, Turbidity, and Temperature.
 2. **Unsupervised baseline** — Isolation Forest + lightweight statistical guards.
 3. **Operator-in-the-loop** — labels from ops improve thresholds and reduce false positives.
-4. **Temporal upgrade** — move to sequence models (LSTM/CNN autoencoders) when enough labeled sequences exist.
-5. **Edge-ready rollouts** — ONNX/Joblib artifacts with logging and safe fallbacks.
+4. **Edge-ready rollouts** — ONNX/Joblib artifacts with logging and safe fallbacks.
 
 ---
 
@@ -21,23 +20,33 @@ Detect anomalous behaviour in the four core water signals — **Temperature, TDS
 
 ---
 
-## Who this is for (brief primer)
 
-If you’re new: anomalies are just "things that don’t fit the usual pattern." In water quality, sensors are noisy and chemistry ties variables together — so single-sensor rules are fragile. This phase builds tools that look at the whole picture and call things out when the picture breaks.
 
 **Real-world uses:** early leak detection, contamination alerts, sensor-fault detection, maintenance scheduling, regulatory compliance evidence.
 
-**Easier/better alternatives (when to pick):**
 
-* If labelled incidents exist: supervised classifiers (Random Forest/XGBoost) are more precise.
-* If you need sequence context: LSTM/Temporal CNN autoencoders capture patterns over time.
-* If compute is minimal: simple rule-based thresholds + correlation checks are lightweight and reliable.
 
-**Top institutions doing similar work:** Xylem (water tech), Siemens (industrial monitoring), Honeywell (process control), EPA/WHO (standards & guidelines), NVIDIA/Google (ML tooling for production deployments).
+## 🧾 Current Implementation (Notebook Summary)  
 
+The notebook **`water-anomaly.ipynb`** implements a **baseline anomaly detection pipeline**:
+
+- **Libraries used:** `pandas`, `scikit-learn (IsolationForest)`, `joblib`  
+- **Data loading:** CSV → timestamp parsing → chronological sorting  
+- **Feature engineering (implemented):**  
+  - `ph_dev` → deviation from neutral pH (7)  
+  - `tds_temp_ratio` → ratio of TDS to temperature  
+  - `turbidity_x_ph` → interaction of turbidity and pH  
+  - `temp_sqr` → squared temperature for nonlinear effects  
+- **Model:**  
+  - Isolation Forest (`n_estimators=100`, `contamination=0.05`, `random_state=42`)  
+  - Trained on engineered features  
+- **Outputs:**  
+  - `anomaly_score` → continuous decision function  
+  - `anomaly_raw` → raw prediction (`-1` anomaly, `1` normal)  
+  - `anomaly_status` → mapped string label (`Anomaly`/`Normal`)  
 ---
 
-## Correlation & Interdependency (concise)
+## Correlation & Interdependency 
 
 Sensors interact — we treat the network as a small chemical system and test whether the readings fit expected relationships.
 
@@ -84,9 +93,6 @@ Freeze this exact list in a config (versioned) so inference matches training.
 
 * Why: works well with tabular features, low latency, easy to serialize.
 
-**Cross-checks:** Local Outlier Factor, simple rule-based guards (domain thresholds).
-
-**When to upgrade:** move to LSTM autoencoders or temporal transformers when you have long, labeled sequences or need context-aware detection.
 
 ---
 
@@ -112,6 +118,7 @@ Freeze this exact list in a config (versioned) so inference matches training.
 10. **Export** model + config + baseline correlation matrix for deployment.
 
 ---
+
 
 ## Evaluation & Metrics
 
@@ -139,18 +146,18 @@ Visuals to keep: score timeline, anomaly bands, and per-event feature z-scores.
 
 ---
 
-## Next steps & practical deliverables
+---
 
-* Add a compact **correlation chart** (image) to the README — I can lay it out for you.
-* Draft `config.json` with frozen feature order and example thresholds.
-* Provide a small `serve_anomaly.py` that accepts single-sample JSON and returns score + correlation flags.
+📌 Authors  
+
+- **Pushkar Arora**  
+  - [GitHub](https://github.com/pushkar1887)  
+  - [LinkedIn](https://www.linkedin.com/in/pushkar-arora-0b3599356/)  
+  - [Kaggle](https://www.kaggle.com/pushkararora)  
+
+- **Satyam Choudhary**  
+  - [GitHub](https://github.com/SatyamChoudhary1909)  
+  - [LinkedIn](https://www.linkedin.com/in/satyam-choudhary-114b89325/)  
 
 ---
 
-## Credits
-
-Pushkar Arora, Satyam Choudhary — ML Build, Phase 2.
-
----
-
-*If you want it tighter or more formal for a report, I’ll make it crisp. If you want a version that’s readme‑ready with diagrams and config samples, say the word — I’ll drop them into the doc.*
